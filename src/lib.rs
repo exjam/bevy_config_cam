@@ -5,8 +5,8 @@ use bevy::{
     prelude::*,
     render::{
         camera::Camera,
-        camera::CameraProjection,
         camera::{ActiveCameras, PerspectiveProjection},
+        camera::{CameraPlugin, CameraProjection},
     },
     window::Windows,
 };
@@ -231,7 +231,7 @@ fn setup(
     commands
         .spawn_bundle(PerspectiveCameraBundle {
             camera: Camera {
-                name: Some("Camera3d".to_string()),
+                name: Some(CameraPlugin::CAMERA_3D.to_string()),
                 ..Default::default()
             },
             transform: Transform::from_xyz(-2.0, 5.0, 5.0).looking_at(Vec3::ZERO, Vec3::Y),
@@ -410,7 +410,7 @@ fn move_camera(
     }
     // look at that new camera's actual focus
     for (mut transform, camera) in transforms.q0().iter_mut() {
-        if camera.name == Some("Camera3d".to_string()) {
+        if camera.name == Some(CameraPlugin::CAMERA_3D.to_string()) {
             if delta_trans.translation != Vec3::ZERO {
                 *transform = delta_trans
             } else {
@@ -430,13 +430,13 @@ fn toggle_camera_parent(
     )>,
 ) {
     if settings.locked_to_player && !settings.ltp {
-        act_cams.remove("Camera3d");
+        act_cams.remove(CameraPlugin::CAMERA_3D);
 
         let mut q1 = query.q1();
         let (_, mut b) = q1.single_mut();
-        b.name = Some("Camera3d".to_string());
+        b.name = Some(CameraPlugin::CAMERA_3D.to_string());
 
-        act_cams.add("Camera3d");
+        act_cams.add(CameraPlugin::CAMERA_3D);
 
         let mut q0 = query.q0();
         let (_, mut b) = q0.single_mut();
@@ -444,13 +444,13 @@ fn toggle_camera_parent(
 
         settings.ltp = true;
     } else if !settings.locked_to_player && settings.ltp {
-        act_cams.remove("Camera3d");
+        act_cams.remove(CameraPlugin::CAMERA_3D);
 
         let mut q0 = query.q0();
         let (_, mut b) = q0.single_mut();
-        b.name = Some("Camera3d".to_string());
+        b.name = Some(CameraPlugin::CAMERA_3D.to_string());
 
-        act_cams.add("Camera3d");
+        act_cams.add(CameraPlugin::CAMERA_3D);
 
         let mut q1 = query.q1();
         let (_, mut b) = q1.single_mut();
