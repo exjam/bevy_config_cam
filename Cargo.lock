@@ -205,9 +205,10 @@ name = "bevy_config_cam"
 version = "0.2.0"
 dependencies = [
  "bevy",
+ "bevy_dolly",
  "rand",
- "strum",
- "strum_macros",
+ "strum 0.21.0",
+ "strum_macros 0.21.1",
 ]
 
 [[package]]
@@ -273,6 +274,17 @@ dependencies = [
  "bevy_ecs",
  "bevy_log",
  "bevy_utils",
+]
+
+[[package]]
+name = "bevy_dolly"
+version = "0.0.1"
+dependencies = [
+ "bevy",
+ "dolly",
+ "leafwing-input-manager",
+ "strum 0.23.0",
+ "strum_macros 0.23.1",
 ]
 
 [[package]]
@@ -1020,6 +1032,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "dolly"
+version = "0.2.0"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
 name = "downcast-rs"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1403,10 +1422,33 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
-name = "libc"
-version = "0.2.115"
+name = "leafwing-input-manager"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a8d982fa7a96a000f6ec4cfe966de9703eccde29750df2bb8949da91b0e818d"
+checksum = "d027a38082e80d283daf96a5fc577548f131d8faf7605d4372fb8e88617ca10f"
+dependencies = [
+ "bevy",
+ "leafwing_input_manager_macros",
+ "petitset",
+ "strum 0.23.0",
+ "thiserror",
+]
+
+[[package]]
+name = "leafwing_input_manager_macros"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "696e60c9dd31a8bc9622baf5c71aa2a44985d83ab04e2af754c062067d8afee8"
+dependencies = [
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "libc"
+version = "0.2.116"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "565dbd88872dbe4cc8a46e527f26483c1d1f7afa6b884a3bd6cd893d4f98da74"
 
 [[package]]
 name = "libloading"
@@ -1426,9 +1468,9 @@ checksum = "7fc7aa29613bd6a620df431842069224d8bc9011086b1db4c0e0cd47fa03ec9a"
 
 [[package]]
 name = "lock_api"
-version = "0.4.5"
+version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "712a4d093c9976e24e7dbca41db895dabcbac38eb5f4045393d17a95bdfb1109"
+checksum = "88943dd7ef4a2e5a4bfa2753aaab3013e34ce2533d1996fb18ef591e315e2b3b"
 dependencies = [
  "scopeguard",
 ]
@@ -1786,6 +1828,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "petitset"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aa2f1d872ba8a3e42e42143754370d9106109acf565855af577b324801bd36d7"
+
+[[package]]
 name = "pin-project-lite"
 version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1966,6 +2014,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08d43f7aa6b08d49f382cde6a7982047c3426db949b1424bc4b7ec9ae12c6ce2"
 
 [[package]]
+name = "rustversion"
+version = "1.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f2cc38e8fa666e2de3c4aba7edeb5ffc5246c1c2ed0e3d17e560aeeba736b23f"
+
+[[package]]
 name = "ryu"
 version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2099,6 +2153,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aaf86bbcfd1fa9670b7a129f64fc0c9fcbbfe4f1bc4210e9e98fe71ffc12cde2"
 
 [[package]]
+name = "strum"
+version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cae14b91c7d11c9a851d3fbc80a963198998c2a64eec840477fa92d8ce9b70bb"
+dependencies = [
+ "strum_macros 0.23.1",
+]
+
+[[package]]
 name = "strum_macros"
 version = "0.21.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2107,6 +2170,19 @@ dependencies = [
  "heck",
  "proc-macro2",
  "quote",
+ "syn",
+]
+
+[[package]]
+name = "strum_macros"
+version = "0.23.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5bb0dc7ee9c15cea6199cde9a127fa16a4c5819af85395457ad72d68edc85a38"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "rustversion",
  "syn",
 ]
 

@@ -25,6 +25,7 @@ name = "bevy_config_cam"
 rand = "0.8.0"
 strum = "0.21.0"
 strum_macros = "0.21.1"
+bevy_dolly = { path = "../bevy_dolly" }
 
 [dependencies.bevy]
 version = "0.6"

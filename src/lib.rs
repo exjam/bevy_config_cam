@@ -11,6 +11,7 @@ use bevy::{
     window::Windows,
 };
 
+use bevy_dolly::DollyCursorGrab;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
@@ -123,6 +124,7 @@ pub struct ConfigCam;
 impl Plugin for ConfigCam {
     fn build(&self, app: &mut App) {
         app.init_resource::<CamLogic>()
+            .add_plugin(DollyCursorGrab)
             .add_plugin(NoCameraPlayerPlugin)
             .init_resource::<PlayerSettings>()
             .add_state(PluginState::Enabled)
@@ -595,16 +597,6 @@ struct FlyCam;
 #[derive(Component)]
 struct PlayerCam;
 
-/// Grabs/ungrabs mouse cursor
-fn toggle_grab_cursor(window: &mut Window) {
-    window.set_cursor_lock_mode(!window.cursor_locked());
-    window.set_cursor_visibility(!window.cursor_visible());
-}
-
-/// Grabs the cursor when game first starts
-fn initial_grab_cursor(mut windows: ResMut<Windows>) {
-    toggle_grab_cursor(windows.get_primary_mut().unwrap());
-}
 
 /// Spawns the `Camera3dBundle` to be controlled
 fn setup_player(mut commands: Commands) {
@@ -700,13 +692,6 @@ fn player_look(
     }
 }
 
-fn cursor_grab(keys: Res<Input<KeyCode>>, mut windows: ResMut<Windows>) {
-    let window = windows.get_primary_mut().unwrap();
-    if keys.just_pressed(KeyCode::Escape) {
-        toggle_grab_cursor(window);
-    }
-}
-
 /// Contains everything needed to add first-person fly camera behavior to your game
 pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
@@ -714,10 +699,8 @@ impl Plugin for PlayerPlugin {
         app.init_resource::<InputState>()
             .init_resource::<MovementSettings>()
             .add_startup_system(setup_player)
-            .add_startup_system(initial_grab_cursor)
             .add_system(player_move.before(MovementUpdate))
-            .add_system(player_look.after(MovementUpdate))
-            .add_system(cursor_grab.after(MovementUpdate));
+            .add_system(player_look.after(MovementUpdate));
     }
 }
 
@@ -727,9 +710,7 @@ impl Plugin for NoCameraPlayerPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<InputState>()
             .init_resource::<MovementSettings>()
-            .add_startup_system(initial_grab_cursor)
             .add_system(player_move.before(MovementUpdate))
-            .add_system(player_look.after(MovementUpdate))
-            .add_system(cursor_grab.after(MovementUpdate));
+            .add_system(player_look.after(MovementUpdate));
     }
 }
