@@ -11,7 +11,7 @@ use bevy::{
     window::Windows,
 };
 
-use bevy_dolly::DollyCursorGrab;
+use bevy_dolly::prelude::*;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
